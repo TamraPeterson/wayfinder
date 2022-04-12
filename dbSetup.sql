@@ -30,3 +30,13 @@ DROP TABLE reservations;
 INSERT INTO trips
 (name)
 VALUES("Hawaii");
+
+INSERT INTO reservations
+(type, name, confirmationNumber, address, date, cost, tripId)
+VALUES 
+("Hotel", "Hilton", "askdifl123", "5324 Sleepytown st", "4/29/22", 355, 1);
+
+DELETE FROM reservations
+WHERE id = 3;
+
+SELECT * FROM reservations;

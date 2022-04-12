@@ -14,9 +14,11 @@ namespace wayfinder.Controllers
   public class TripsController : ControllerBase
   {
     private readonly TripsService _ts;
-    public TripsController(TripsService ts)
+    private readonly ReservationsService _rs;
+    public TripsController(TripsService ts, ReservationsService rs)
     {
       _ts = ts;
+      _rs = rs;
     }
 
     [HttpGet]
@@ -83,6 +85,21 @@ namespace wayfinder.Controllers
         tripData.Id = id;
         Trip trip = _ts.Update(tripData);
         return Ok(trip);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    // Get all reservations by trip id
+    [HttpGet("{id}/reservations")]
+    public ActionResult<List<Reservation>> GetAllReservations(int id)
+    {
+      try
+      {
+        List<Reservation> reservations = _rs.GetAll(id);
+        return Ok(reservations);
       }
       catch (Exception e)
       {
